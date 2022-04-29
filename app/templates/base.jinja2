@@ -8,87 +8,119 @@
               href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.2/css/fontawesome.min.css"
               integrity="sha384-X8QTME3FCg1DLb58++lPvsjbQoCT9bp3MsUU3grbIny/3ZwUJkRNO8NPW6zqzuW9"
               crossorigin="anonymous">
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+              crossorigin="anonymous">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+              integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+              crossorigin="anonymous"
+              referrerpolicy="no-referrer" />
     </head>
     <body>
         <div class="container">
             <form action="/" method="post">
                 <div class="row">
                     <div class="input-group">
-                        <input type="text" name="date" id="date" class="form-control">
-                        <div class="input-group-addon">
-                            <span class="glyphicon glyphicon-th"></span>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa-solid fa-calendar"></i></span>
                         </div>
-                        <div>
-                        <input type="number" name="hours" id="hours" step=1 min=0 max=23 class="form-control">
-                        <div class="input-group-addon">
-                            <i class="fa-solid fa-clock"></i>
-                        </div>
-                        <input type="number" name="minutes" id="minutes" step=1 min=0 max=59 class="form-control">
+                        <input type="number" name="day" id="day" min=1 max=31 class="form-control">
+                        <input type="number" name="month" id="month" min=1 max=12 class="form-control">
+                        <input type="number" name="year" id="year" min=2000 max=2500 class="form-control">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa-solid fa-clock"></i></span>
+                        </div>
+                        <input type="number" name="hours" id="hours" min=0 max=23 class="form-control">
+                        <input type="number" name="minutes" id="minutes" min=0 max=59 class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
                         <label> Sugar </label>
                     </div>
-                    <div class="col">
+                    <div class="col d-flex justify-content-center">
                         <input type="number" name="sugar" step="any">
                     </div>
                 </div class="row">
                 <div class="row">
-                    <div class="col">
+                    <div class="col d-flex justify-content-center">
                         <label> Dosage </label>
                     </div>
-                    <div class="col">
+                    <div class="col d-flex justify-content-center">
                         <input type="number" name="dosage" step="any">
                     </div>
                 </div class="row">
                 <div class="row">
-                    <div class="col">
-                        <label> <i class="fa-solid fa-droplet"></i> </label>
-                    </div>
-
-                    <div class="col">
+                    <div class="col d-flex justify-content-center">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-solid fa-droplet"></i></span>
+                        </div>
                         <input type="number" name="water" step="any">
                     </div>
 
-                    <div class="col">
-                        <label> <i class="fa-solid fa-can-food"></i> </label>
-                    </div>
-
-                    <div class="col">
+                    <div class="col d-flex justify-content-center">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-solid fa-burger"></i></span>
+                        </div>
                         <input type="text" name="foodbrand" placeholder="Food Brand">
-                    </div>
-
-                    <div class="col">
                         <input type="number" name="foodamount" step="any">
                     </div>
                 </div class="row">
 
-                <div class="row">
-                    <button type="submit" class="btn">Send Form</button>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-2">
+                        <button type="submit" class="btn">Send Form</button>
+                    </div>
                 </div>
             </form>
             <div class="row"> <hr> </div>
 
+            {% if entries %}
+                <div class="row">
+                    <div class="col">
+                        Date
+                    </div>
+                    <div class="col">
+                        Sugar
+                    </div>
+                    <div class="col">
+                        Dosage
+                    </div>
+                    <div class="col">
+                        Food
+                    </div>
+                    <div class="col">
+                        Brand
+                    </div>
+                    <div class="col">
+                        Water
+                    </div>
+                </div>
+            {% endif %}
             {% for entry in entries %}
                 <div class="row">
                     <div class="col">
-                        <i class="fa-solid fa-clock"></i> {% entry["date"] %} {% entry["hours"] %}:{% entry ["minutes"] %}
+                        {{ entry["day"] }}.{{ entry["month"] }}.{{ entry["year"] }} {{ entry["hours"] }}:{{ entry ["minutes"] }}
                     </div>
                     <div class="col">
-                        {% entry["sugar"] %}
+                        {{ entry["sugar"] }}
                     </div>
                     <div class="col">
-                        {% entry["dosage"] %}
+                        {{ entry["dosage"] }}
                     </div>
                     <div class="col">
-                        {% entry["foodamount"] %}
+                        {{ entry["foodamount"] }}
                     </div>
                     <div class="col">
-                        {% entry["foodbrand"] %}
+                        {{ entry["foodbrand"] }}
                     </div>
                     <div class="col">
-                        {% entry["water"] %}
+                        {{ entry["water"] }}
                     </div>
                 </div>
             {% endfor %}
@@ -100,12 +132,21 @@
         <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"
                 integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA="
                 crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
+                integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
+                crossorigin="anonymous"
+                referrerpolicy="no-referrer"></script>
 
         <script>
-$('#choosedate').datepicker({
-    format: 'dd.mm.yyyy',
-    startDate: '0d'
-});
+
+var today = new Date();
+
+$("#day").val(today.getDate())
+$("#month").val(today.getMonth() + 1)
+$("#year").val(today.getFullYear())
+$("#hours").val(today.getHours())
+$("#minutes").val(today.getMinutes())
+
         </script>
     </body>
 </html>
