@@ -16,65 +16,66 @@
               integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
               crossorigin="anonymous"
               referrerpolicy="no-referrer" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+.fix-prep > span {
+    height: 100%;
+    border-radius: 6pt 0 0 6pt;
+}
+.fix-mid > span {
+    height: 100%;
+    border-radius: 0 0 0 0;
+}
+
+        </style>
     </head>
     <body>
-        <div class="container">
+        <div class="container-fluid">
             <form action="/" method="post">
                 <div class="row">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa-solid fa-calendar"></i></span>
+                    <div class="input-group my-3">
+                        <div class="input-group-prepend fix-prep">
+                            <span class="input-group-text" id="basic-addon4"><i class="fa-solid fa-calendar"></i></span>
                         </div>
-                        <input type="number" name="day" id="day" min=1 max=31 class="form-control">
-                        <input type="number" name="month" id="month" min=1 max=12 class="form-control">
-                        <input type="number" name="year" id="year" min=2000 max=2500 class="form-control">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
+                        <input type="number" name="day" id="day" size=2 min=1 max=31 class="form-control" aria-describedby="basic-addon4">
+                        <input type="number" name="month" id="month" size=2 min=1 max=12 class="form-control">
+                        <input type="number" name="year" id="year" size=4 min=2000 max=2500 class="form-control">
+                        <div class="input-group-prepend fix-mid">
                             <span class="input-group-text"><i class="fa-solid fa-clock"></i></span>
                         </div>
-                        <input type="number" name="hours" id="hours" min=0 max=23 class="form-control">
-                        <input type="number" name="minutes" id="minutes" min=0 max=59 class="form-control">
+                        <input type="number" name="hours" id="hours" size=2 min=0 max=23 class="form-control">
+                        <input type="number" name="minutes" id="minutes" size=2 min=0 max=59 class="form-control">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col d-flex justify-content-center">
-                        <label> Sugar </label>
-                    </div>
-                    <div class="col d-flex justify-content-center">
-                        <input type="number" name="sugar" step="any">
-                    </div>
-                </div class="row">
-                <div class="row">
-                    <div class="col d-flex justify-content-center">
-                        <label> Dosage </label>
-                    </div>
-                    <div class="col d-flex justify-content-center">
-                        <input type="number" name="dosage" step="any">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend fix-prep">
+                            <span class="input-group-text"><i class="fa-solid fa-cubes-stacked"></i></span>
+                        </div>
+                        <input type="number" name="sugar" size=6 step="any" class="form-control">
+                        <div class="input-group-prepend fix-mid">
+                            <span class="input-group-text"><i class="fa-solid fa-syringe"></i></span>
+                        </div>
+                        <input type="number" name="dosage" size=6 step="any" class="form-control">
                     </div>
                 </div class="row">
                 <div class="row">
-                    <div class="col d-flex justify-content-center">
-                        <div class="input-group-prepend">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend fix-prep">
                             <span class="input-group-text"><i class="fa fa-solid fa-droplet"></i></span>
                         </div>
-                        <input type="number" name="water" step="any">
-                    </div>
-
-                    <div class="col d-flex justify-content-center">
-                        <div class="input-group-prepend">
+                        <input type="number" name="water" step="any" class="form-control">
+                        <div class="input-group-prepend fix-mid">
                             <span class="input-group-text"><i class="fa fa-solid fa-burger"></i></span>
                         </div>
-                        <input type="text" name="foodbrand" placeholder="Food Brand">
-                        <input type="number" name="foodamount" step="any">
+                        <input type="text" size=16 name="foodbrand" placeholder="Food Brand" class="form-control">
+                        <input type="number" size=3 name="foodamount" step="any" class="form-control">
                     </div>
                 </div class="row">
 
                 <div class="row d-flex justify-content-center">
                     <div class="col-2">
-                        <button type="submit" class="btn">Send Form</button>
+                        <button type="submit" class="btn btn-primary">Send Form</button>
                     </div>
                 </div>
             </form>

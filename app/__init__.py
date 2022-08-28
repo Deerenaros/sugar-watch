@@ -6,7 +6,7 @@ import logging
 
 app = flask.Flask(__name__)
 entries = []
-entries_pickle = "./entries.pickle"
+entries_pickle = "./stuff/entries.pickle"
 
 
 if os.path.exists(entries_pickle):
