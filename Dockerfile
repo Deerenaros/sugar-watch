@@ -1,6 +1,6 @@
 FROM python:3
 
-RUN pip install flask sqlalchemy psycopg2
+RUN pip install flask sqlalchemy psycopg2 matplotlib
 RUN mkdir ./stuff
 ADD app ./app
 

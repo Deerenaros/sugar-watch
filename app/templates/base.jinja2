@@ -80,7 +80,9 @@
                 </div>
             </form>
             <div class="row"> <hr> </div>
-
+            <div class="row justify-content-center">
+                <img style="width: 600px" src='data:image/png;base64,{{ entries[:10] | plot_entries }}'/>
+            </div>
             {% if entries %}
                 <div class="row">
                     <div class="col">
