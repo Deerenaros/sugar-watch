@@ -106,7 +106,7 @@
             {% for entry in entries %}
                 <div class="row">
                     <div class="col">
-                        {{ entry["day"] }}.{{ entry["month"] }}.{{ entry["year"] }} {{ entry["hours"] }}:{{ entry ["minutes"] }}
+                        {{ entry["day"] }}.{{ entry["month"] }}.{{ entry["year"] }} {{ entry["hour"] }}:{{ entry ["minute"] }}
                     </div>
                     <div class="col">
                         {{ entry["sugar"] }}
@@ -115,10 +115,10 @@
                         {{ entry["dosage"] }}
                     </div>
                     <div class="col">
-                        {{ entry["foodamount"] }}
+                        {{ entry["food"] }}
                     </div>
                     <div class="col">
-                        {{ entry["foodbrand"] }}
+                        {{ entry["brand"] }}
                     </div>
                     <div class="col">
                         {{ entry["water"] }}

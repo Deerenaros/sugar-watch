@@ -1,10 +1,21 @@
 version: "3.9"
+
 services:
+
   app:
     build: .
+    restart: always
     ports:
       - "80:5000"
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: local
+      POSTGRES_PASSWORD: sql
     volumes:
-      - stuff:/stuff
+      - stuff:/var/lib/postgresql/data
+
 volumes:
   stuff: {}
