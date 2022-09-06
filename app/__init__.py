@@ -16,9 +16,9 @@ class Entry(Base):
     date = Column(DateTime)
     sugar = Column(Float)
     dosage = Column(Float)
-    food = Column(Integer)
-    brand = Column(String)
-    water = Column(Integer)
+    food = Column(Integer, nullable=True)
+    brand = Column(String, nullable=True)
+    water = Column(Integer, nullable=True)
     
     def __getitem__(self, key):
         if key in ("year", "month", "day", "hour", "minute"):
@@ -75,9 +75,9 @@ def push():
     session.add(Entry(date=get_date(flask.request.form),
                       sugar=flask.request.form.get("sugar"),
                       dosage=flask.request.form.get("dosage"),
-                      food=flask.request.form.get("foodamount"),
-                      brand=flask.request.form.get("foodbrand"),
-                      water=flask.request.form.get("water")))
+                      food=flask.request.form.get("foodamount") or None,
+                      brand=flask.request.form.get("foodbrand") or None,
+                      water=flask.request.form.get("water") or None))
     session.commit()
 
     return flask.redirect("/")
