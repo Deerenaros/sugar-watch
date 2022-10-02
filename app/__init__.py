@@ -40,23 +40,31 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 app = flask.Flask(__name__)
+err = []
+
+@app.add_template_global
+def last_err():
+    if not err:
+        return None
+
+    last = err[-1]
+    err.clear()
+    return last
 
 @app.add_template_filter
 def plot_entries(entries):
-    import matplotlib.dates as dt
-    import matplotlib.figure as fg
-    import io, base64
+    import plotly
+    import json
+    import pandas as pd
+    import plotly.express as px
+    import sys
 
-    X = [entry.date for entry in entries]
-    Y = [entry.sugar for entry in entries]
+    df = pd.DataFrame({
+        "sugar": [entry["sugar"] for entry in entries],
+        "date": [entry["date"] for entry in entries],
+    })
 
-    figure = fg.Figure()
-    plot = figure.subplots()
-    plot.plot_date(dt.date2num(X), Y, "ro")
-    buff = io.BytesIO()
-    figure.savefig(buff, format="png")
-    return base64.b64encode(buff.getbuffer()).decode("ascii")
-
+    return json.dumps(px.scatter(df, x="date", y="sugar"), cls=plotly.utils.PlotlyJSONEncoder)
 
 @app.route("/", methods=["get"])
 def index():
@@ -72,12 +80,15 @@ def get_date(form):
 
 @app.route("/", methods=["post"])
 def push():
-    session.add(Entry(date=get_date(flask.request.form),
-                      sugar=flask.request.form.get("sugar"),
-                      dosage=flask.request.form.get("dosage"),
-                      food=flask.request.form.get("foodamount") or None,
-                      brand=flask.request.form.get("foodbrand") or None,
-                      water=flask.request.form.get("water") or None))
-    session.commit()
+    try:
+        session.add(Entry(date=get_date(flask.request.form),
+                        sugar=flask.request.form.get("sugar"),
+                        dosage=flask.request.form.get("dosage"),
+                        food=flask.request.form.get("foodamount") or None,
+                        brand=flask.request.form.get("foodbrand") or None,
+                        water=flask.request.form.get("water") or None))
+        session.commit()
+    except Exception as e:
+        err.append(str(e))
 
     return flask.redirect("/")
