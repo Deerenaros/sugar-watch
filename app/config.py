@@ -1,0 +1,1 @@
+SQL_URI = "postgresql://local:sql@postgres"
