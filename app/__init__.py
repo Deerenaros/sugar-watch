@@ -33,13 +33,13 @@ def plot_entries(entries):
     return json.dumps(px.scatter(df, x="date", y="sugar"), cls=plotly.utils.PlotlyJSONEncoder)
 
 
-@app.route("/", methods=["get"])
-def index():
+@app.route("/<scope>", methods=["get"])
+def index(scope):
     return flask.render_template("base.jinja2", entries=session.query(Entry).order_by(Entry.date.desc()).all())
 
 
-@app.route("/", methods=["post"])
-def push():
+@app.route("/<scope>", methods=["post"])
+def push(scope):
     try:
         session.add(Entry(date=get_date(flask.request.form),
                         sugar=flask.request.form.get("sugar"),
@@ -51,4 +51,4 @@ def push():
     except Exception as e:
         err.append(str(e))
 
-    return flask.redirect("/")
+    return flask.redirect(f"/{scope}")

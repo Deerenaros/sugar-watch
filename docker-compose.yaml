@@ -38,11 +38,9 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.bloodwatch.rule=Host(`bloodwatch.tk`) && PathPrefix(`/12dca748-55eb-11ed-a150-2a033e20105e`)"
-      - "traefik.http.middlewares.bloodwatch.replacepath.path=/"
       - "traefik.http.services.bloodwatch.loadbalancer.server.port=5000"
       - "traefik.http.routers.bloodwatch.entrypoints=websecure"
       - "traefik.http.routers.bloodwatch.tls=true"
-      - "traefik.http.routers.bloodwatch.middlewares=bloodwatch@docker"
       - "traefik.http.routers.bloodwatch.tls.certresolver=le"
     networks:
       - traefik-public
