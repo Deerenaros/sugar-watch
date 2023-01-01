@@ -141,9 +141,6 @@
                     <div class="col">
                         {{ entry["water"] }}
                     </div>
-                    <div class="col">
-                        {{ entry["water"] }}
-                    </div>
                     <div class="col remover" data-id="{{ entry['id'] }}">
                         <i class="fa-sharp fa-solid fa-xmark"></i>
                     </div>
@@ -179,7 +176,7 @@
             $.ajax({
                 url: `${window.location.pathname}/${$(this).data("id")}`,
                 type: 'DELETE',
-                success: function(result) {
+                success: () => {
                     $(this).css("display", "none")
                 }
             });
