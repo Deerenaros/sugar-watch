@@ -177,7 +177,7 @@
                 url: `${window.location.pathname}/${$(this).data("id")}`,
                 type: 'DELETE',
                 success: () => {
-                    $(this).css("display", "none")
+                    $(this).parent().css("display", "none")
                 }
             });
         });
