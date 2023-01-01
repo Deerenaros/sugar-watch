@@ -42,9 +42,9 @@ def index(scope):
 def push(scope):
     try:
         session.add(Entry(date=get_date(flask.request.form),
-                        sugar=flask.request.form.get("sugar"),
-                        dosage=flask.request.form.get("dosage"),
-                        food=flask.request.form.get("foodamount") or None,
+                        sugar=float(flask.request.form.get("sugar")),
+                        dosage=float(flask.request.form.get("dosage")),
+                        food=int(flask.request.form.get("foodamount", 0)) or None,
                         brand=flask.request.form.get("foodbrand") or None,
                         water=flask.request.form.get("water") or None))
         session.commit()
@@ -52,3 +52,16 @@ def push(scope):
         err.append(str(e))
 
     return flask.redirect(f"/{scope}")
+
+@app.route("/<scope>/<id>", methods=["delete"])
+def remove(scope, id):
+    import json
+
+    try:
+        session.query(Entry).filter(Entry.id == id).delete()
+        session.commit()
+    except Exception as e:
+        err.append(str(e))
+        return json.dumps({'success': False}), 501, {'ContentType':'application/json'} 
+
+    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
