@@ -116,6 +116,9 @@
                     <div class="col">
                         Water
                     </div>
+                    <div class="col">
+                        -
+                    </div>
                 </div>
             {% endif %}
             {% for entry in entries %}
@@ -178,7 +181,7 @@
                 url: `${window.location.pathname}/${$(this).data("id")}`,
                 type: 'DELETE',
                 success: function(result) {
-                    $(this).css("display": "none")
+                    $(this).css("display", "none")
                 }
             });
         });
