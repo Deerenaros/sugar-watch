@@ -55,10 +55,12 @@ def push(scope):
 
 @app.route("/<scope>/<id>", methods=["delete"])
 def remove(scope, id):
-    import json
-
+    import json, sys
     try:
-        session.query(Entry).filter(Entry.id == id).delete()
+        toremove = session.query(Entry).filter(Entry.id == id)
+        piece = toremove.first()
+        print(piece.id, piece.date, piece.dosage, piece.food, piece.brand, piece.water, "(date sugar dosage food brand water) will be removed", file=sys.stderr)
+        toremove.delete()
         session.commit()
     except Exception as e:
         err.append(str(e))
